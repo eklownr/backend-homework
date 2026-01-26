@@ -1,18 +1,48 @@
+/*
+
+// 1-2 hello
 type PrintHelloFunc = (message: string) => void;
 
 const hello = (s: string, saHello: PrintHelloFunc): void => {
     console.log("runnig callback in 2 seconds");
     
-    //setTimeout(() => {
+    setTimeout(() => {
         sayHello(s);
-    //},2000);
+    },2000);
 };
 
 const sayHello = (message: string): void => {
     console.log(message);
 };
 
-hello("hello from callback", sayHello)
+hello("hello I am late", sayHello)
 
 
+// 3 Math callback
+type printResultFunc = (result: number) => void;
 
+const calculate = (x: number, y: number, printResult: printResultFunc): void => {
+    const result = x + y;
+    printResult(result)
+}
+
+ const printResult = (result: number): void => {
+    console.log("The result is: ", result);
+    
+}
+calculate(2, 5, printResult);
+
+*/
+
+// 4 Uppercase callback
+type PrintUppercaseFunc = (message: string) => void;
+
+const uppercase = (s: string, printUppercase: PrintUppercaseFunc) => {
+    printUppercase(s);
+};
+
+const printUppercase = (message: string) => {
+    console.log(message.toUpperCase());
+};
+
+uppercase("testing uppercase callback!", printUppercase)
