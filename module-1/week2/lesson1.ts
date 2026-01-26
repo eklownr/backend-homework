@@ -109,8 +109,6 @@ callThreeTimes((msg) => {
   console.log(msg);
 });   
 
-*/
-
 
 // 7 Download file
 type ShowFileFunc = (fileContent: string) => void;
@@ -128,3 +126,34 @@ const showFile = (fileContent: string): void => {
 };
 
 downloadFile("http://example.com/file.txt", showFile)
+
+
+
+// 8) Success and Error Callback 
+type SuccessFunc = () => void;
+type ErrorFunc = () => void;
+const twoCallbacks = (success: SuccessFunc, error: ErrorFunc) => {
+    const result = Math.random() > 0.5;   
+    console.log("It is ", result, " that it is a seccess");
+
+    if (result) {
+        success();
+    } else {
+        error();
+    }
+};
+
+const success = () => {
+    console.log("Success!");
+};
+
+const error = () => {
+    console.log("Error!");
+};
+
+twoCallbacks(success, error);
+
+*/
+
+
+// 9) 
