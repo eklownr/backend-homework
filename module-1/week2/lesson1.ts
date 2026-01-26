@@ -46,3 +46,28 @@ const printUppercase = (message: string) => {
 };
 
 uppercase("testing uppercase callback!", printUppercase)
+
+
+// 5 Pizza order
+type PizzaType = (data: string) => void;
+
+const orderPizza = (displayPizza: PizzaType) => {
+    console.log("order pizza ....");
+    setTimeout(() => {
+        const data: string = "Pizza is ready to pickup!"
+        displayPizza(data)
+    }, 3000);   
+}
+
+const displayPizzaOrder = (data: string) => {
+    console.log(data);   
+    endMessage();
+}
+
+function endMessage(): void {
+    setTimeout(() => {
+        console.log("By! Wellcome back!")
+    },2000);
+}
+
+orderPizza(displayPizzaOrder)
