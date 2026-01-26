@@ -1,9 +1,11 @@
-/*
-
+// lesson 1 callbacks week 2
 // 1-2 hello
 type PrintHelloFunc = (message: string) => void;
 
-const hello = (s: string, saHello: PrintHelloFunc): void => {
+const hello1 = (s: string, sayHello: PrintHelloFunc): void => {
+    sayHello(s);
+}
+const hello = (s: string, sayHello: PrintHelloFunc): void => {
     console.log("runnig callback in 2 seconds");
     
     setTimeout(() => {
@@ -14,14 +16,14 @@ const hello = (s: string, saHello: PrintHelloFunc): void => {
 const sayHello = (message: string): void => {
     console.log(message);
 };
-
+hello1("hello no delay", sayHello);
 hello("hello I am late", sayHello)
 
 
 // 3 Math callback
 type printResultFunc = (result: number) => void;
 
-const calculate = (x: number, y: number, printResult: printResultFunc): void => {
+const calculateNumbers = (x: number, y: number, printResult: printResultFunc): void => {
     const result = x + y;
     printResult(result)
 }
@@ -30,7 +32,7 @@ const calculate = (x: number, y: number, printResult: printResultFunc): void => 
     console.log("The result is: ", result);
     
 }
-calculate(2, 5, printResult);
+calculateNumbers(2, 5, printResult);
 
 
 // 4 Uppercase callback
@@ -185,7 +187,6 @@ calculate(2, 5, "-", printCalcResult);
 calculate(2, 5, "*", printCalcResult);
 calculate(2, 5, "/", printCalcResult);
 
-*/
 
 
 // 10) Chained Callbacks 
