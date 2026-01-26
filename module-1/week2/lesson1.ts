@@ -32,7 +32,6 @@ const calculate = (x: number, y: number, printResult: printResultFunc): void => 
 }
 calculate(2, 5, printResult);
 
-*/
 
 // 4 Uppercase callback
 type PrintUppercaseFunc = (message: string) => void;
@@ -71,3 +70,42 @@ function endMessage(): void {
 }
 
 orderPizza(displayPizzaOrder)
+*/
+
+
+// 6 Multiple messages
+type MultiMessageFunc = (msg: string) => void;
+
+const threeMessages = (multi: MultiMessageFunc) => {
+    multi("first message");
+    multi("second message");
+    multi("third message");
+};
+
+const multiMessages = (msg: string) => {
+    console.log(msg);    
+};
+
+threeMessages(multiMessages); // use multi callback three times
+
+
+console.log("********************");
+
+
+// 6 Multiple messages with timeout
+function callThreeTimes(callback: (message: string) => void, count = 0) {
+  const messages = [
+    "Första meddelandet!",
+    "Andra meddelandet!",
+    "Tredje meddelandet!",
+  ];
+
+  if (count < messages.length) {
+    callback(messages[count]);
+    setTimeout(() => callThreeTimes(callback, count + 1), 1000);
+  }
+}
+
+callThreeTimes((msg) => {
+  console.log(msg);
+});   
