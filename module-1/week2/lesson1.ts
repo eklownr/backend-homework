@@ -70,7 +70,6 @@ function endMessage(): void {
 }
 
 orderPizza(displayPizzaOrder)
-*/
 
 
 // 6 Multiple messages
@@ -109,3 +108,23 @@ function callThreeTimes(callback: (message: string) => void, count = 0) {
 callThreeTimes((msg) => {
   console.log(msg);
 });   
+
+*/
+
+
+// 7 Download file
+type ShowFileFunc = (fileContent: string) => void;
+
+const downloadFile = (url: string, showFile: ShowFileFunc): void => {
+    console.log("Starting to download file: ", url);
+    setTimeout(() => {
+        const fileContent: string = `file data from ${url}`
+        showFile(fileContent);
+    },2000);  
+};
+
+const showFile = (fileContent: string): void => {
+    console.log(fileContent);
+};
+
+downloadFile("http://example.com/file.txt", showFile)
