@@ -186,3 +186,26 @@ calculate(2, 5, "*", printCalcResult);
 calculate(2, 5, "/", printCalcResult);
 
 */
+
+
+// 10) Chained Callbacks 
+const step1 =  () => {
+    setTimeout(() => {
+        console.log("Step 1 done.");
+    },1000);  
+    step2() 
+};
+
+const step2 =  () => {
+    setTimeout(() => {
+        console.log("Step 2 done.");
+    },1000);  
+    step3() 
+};
+const step3 =  () => {
+    setTimeout(() => {
+        console.log("Step 3 done.");
+    },1000);  
+};
+
+step1()
