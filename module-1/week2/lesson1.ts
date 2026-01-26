@@ -192,15 +192,15 @@ calculate(2, 5, "/", printCalcResult);
 const step1 =  () => {
     setTimeout(() => {
         console.log("Step 1 done.");
+        step2() 
     },1000);  
-    step2() 
 };
 
 const step2 =  () => {
     setTimeout(() => {
         console.log("Step 2 done.");
+        step3() 
     },1000);  
-    step3() 
 };
 const step3 =  () => {
     setTimeout(() => {
