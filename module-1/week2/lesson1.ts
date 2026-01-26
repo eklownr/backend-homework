@@ -153,7 +153,36 @@ const error = () => {
 
 twoCallbacks(success, error);
 
+
+
+// 9 Math with Different Operations 
+type PrintResultFunc = (result: string) => void;
+
+const printCalcResult = (result: string) => {
+    console.log(result);
+    
+}
+
+const calculate = (x: number, y: number, operator: string, printResult: PrintResultFunc) => {
+    let result: number =  0;
+
+    if (operator === "+") {
+        result = x + y;
+    } else if (operator === "-") {
+        result = x - y;
+    } else if (operator === "*") {
+        result = x * y;
+    } else if (operator === "/") {
+        result = x / y;
+    }
+
+    const resultString: string = `${x.toString()} ${operator} ${y.toString()} = ${result.toString()}`;
+    printResult(resultString);
+}
+
+calculate(2, 5, "+", printCalcResult);
+calculate(2, 5, "-", printCalcResult);
+calculate(2, 5, "*", printCalcResult);
+calculate(2, 5, "/", printCalcResult);
+
 */
-
-
-// 9) 
