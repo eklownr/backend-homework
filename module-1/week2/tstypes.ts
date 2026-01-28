@@ -1,42 +1,3 @@
-// union type
-type passwordType = number | string;
-
-const pass = (code: passwordType) => {
-    console.log("password: ", code);
-}
-pass("1234");
-pass(67890);
-
-
-// interface
-interface Person {
-    firstName: string,
-    age?: number, // optional
-}
-
-interface Customer {
-    id: number,
-    mail: string,
-}
-
-// intersection combine multiple types into one using the & operator
-type Client = Person & Customer;
-
-const clientData = (client: Client) => {
-    console.log("Client", client);
-}
-
-
-const myData = ({
-    firstName:  "Nils",
-    // skipping optional age
-    id:         1,
-    mail:       "df@df.se",
-});
-
-clientData(myData);
-
-
 /**********************************  
 Union types
 **********************************/
@@ -300,3 +261,45 @@ const swap = <T>(a: T, b: T): T[] => {
 
 console.log("swap world, hello", swap("world", "hello"));
 
+
+
+/*
+// Training...
+// union type
+type passwordType = number | string;
+
+const pass = (code: passwordType) => {
+    console.log("password: ", code);
+}
+pass("1234");
+pass(67890);
+
+
+// interface
+interface Person {
+    firstName: string,
+    age?: number, // optional
+}
+
+interface Customer {
+    id: number,
+    mail: string,
+}
+
+// intersection combine multiple types into one using the & operator
+type Client = Person & Customer;
+
+const clientData = (client: Client) => {
+    console.log("Client", client);
+}
+
+
+const myData = ({
+    firstName:  "Nils",
+    // skipping optional age
+    id:         1,
+    mail:       "df@df.se",
+});
+
+clientData(myData);
+*/
