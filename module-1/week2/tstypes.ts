@@ -266,7 +266,37 @@ printRoll(Role.USER)
 Generics
 **********************************/
 // Exersice 1
+// Write a generic function wrapInArray<T> that takes one item 
+// and returns it inside an array. 
+// Example: wrapInArray("cat") → ["cat"] 
+const wrapInArray = <T>(item: T): T[] => {
+  return [item];
+}
+const numberArray = wrapInArray(42);        // number[]
+const stringArray = wrapInArray("hello");   // string[]  
+console.log(wrapInArray("cat")); // returns ["cat"] and print it out
+console.log(numberArray); 
+
 
 // Exersice 2
+// Write a generic function firstItem<T> that takes an array 
+// and returns the first item. 
+// Test with [1, 2, 3] and ["a", "b", "c"]. 
+const firstItem = <T>(item: T[]): T => {
+  return item[0];
+}
+console.log("first in [1,2,3]: ", firstItem([1,2,3]));
+console.log("first in [a,b,c]: ", firstItem(["a","b","c"]));
+
+
 
 // Exersice 3
+// Write a generic function swap<T> that takes two items 
+// and returns them in reverse order inside an array. 
+// Example: swap("hello", "world") → ["world", "hello"] 
+const swap = <T>(a: T, b: T): T[] => {
+  return [b,a];
+}
+
+console.log("swap world, hello", swap("world", "hello"));
+
