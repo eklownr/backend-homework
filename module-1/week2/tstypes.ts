@@ -96,49 +96,70 @@ function checkLight(color: TrafficLight) {
  }
 
 
-/* ****************  
-Union type
-*************** */
+/**********************************  
+Union types
+**********************************/
 // Exersice 1
+// Create a type called IDType that can be either a number OR a string. 
+// Write a function showID that prints "Your ID is: ...". 
+// Call the function with both a number and a string. 
+type IDType = number | string;
+const showID = (id: IDType) => {
+    console.log("Your ID is: ", id);
+}
+showID(123456);
+showID("123456");
 
 // Exersice 2
+// Make a type Fruit that can be "apple" OR "banana" OR "orange". 
+// Write a function eatFruit that prints "You ate an ...". 
+// Test with "apple" and "orange". 
+type Fruit = "apple" | "banana" | "orange";
+const eatFruit = (f: Fruit) => {
+  console.log("You eat an", f);
+};
+eatFruit("apple");
+eatFruit("orange");
 
 // Exersice 3
+// Create a type Result that can be either true OR false. 
+// Write a function printResult that prints "Pass" if true, and "Fail" if false. 
+// Test with both values.
+type Result = true | false;
+const printResult = (testReult: boolean) => {
+  if (testReult) { console.log("Pass"); }
+  else {console.log("Fail");
+  }
+};
+printResult(true);
+printResult(false);
 
-// Exersice 4
 
-
-/* ****************  
+/**********************************  
 Interfaces and Type Aliases
-*************** */
+**********************************/
 // Exersice 1
 
 // Exersice 2
 
 // Exersice 3
 
-// Exersice 4
 
-
-/* ****************  
+/**********************************  
 Enum
-*************** */
+**********************************/
 // Exersice 1
 
 // Exersice 2
 
 // Exersice 3
 
-// Exersice 4
 
-
-/* ****************  
+/**********************************  
 Generics
-*************** */
+**********************************/
 // Exersice 1
 
 // Exersice 2
 
 // Exersice 3
-
-// Exersice 4
