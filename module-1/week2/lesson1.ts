@@ -1,3 +1,5 @@
+/*
+
 // lesson 1 callbacks week 2
 // 1-2 hello
 type PrintHelloFunc = (message: string) => void;
@@ -187,26 +189,29 @@ calculate(2, 5, "-", printCalcResult);
 calculate(2, 5, "*", printCalcResult);
 calculate(2, 5, "/", printCalcResult);
 
-
+*/
 
 // 10) Chained Callbacks 
-const step1 =  () => {
+type stepFunk = (step: stepFunk) => void;
+
+const step1 =  (step: stepFunk) => {
     setTimeout(() => {
         console.log("Step 1 done.");
-        step2() 
+        step(step2) 
     },1000);  
 };
 
-const step2 =  () => {
+const step2 =  (step: stepFunk) => {
     setTimeout(() => {
         console.log("Step 2 done.");
-        step3() 
+        step(step3) 
     },1000);  
 };
-const step3 =  () => {
+
+const step3  =  (step: stepFunk) => {
     setTimeout(() => {
         console.log("Step 3 done.");
     },1000);  
 };
 
-step1()
+step1(step2)
