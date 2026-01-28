@@ -139,10 +139,68 @@ printResult(false);
 Interfaces and Type Aliases
 **********************************/
 // Exersice 1
+// Create an interface Book with properties title (string) and pages (number). 
+// Write a function describeBook that prints: 
+// "The book [title] has [pages] pages." 
+interface Book {
+  title: string;
+  pages: number;
+}
+
+const describeBook = (book: Book) => {
+  console.log(`The book ${book.title} has ${book.pages} pages.`);
+};
+
+const book: Book = {
+  title: "Pelle svanslös",
+  pages: 350,
+}
+
+describeBook(book)
 
 // Exersice 2
+// Create two interfaces: 
+// Teacher with name and subject 
+// Employee with id and email 
+// Make a type SchoolTeacher that is both Teacher AND Employee. 
+// Write a function printTeacherInfo to show their data. 
+interface Teacher {
+  name: string;
+  subject: string;
+};
+interface Employee {
+  id: number;
+  email: string;
+};
+type SchoolTeacher = Teacher & Employee;
+function printTeacherInfo(TE: SchoolTeacher) {
+  console.table(TE);
+};
+const teacher: SchoolTeacher =  {
+  name: "Kalle",
+  subject: "Art",
+  id: 1,
+  email: "kalle@plugget.se"
+};
+printTeacherInfo(teacher);
 
 // Exersice 3
+// Make an interface Car with brand and year. 
+// Write a function printCar that prints "Brand: ... Year: ...". 
+// Call the function with your favorite car. 
+interface Car {
+  brand: string;
+  year: number;
+}
+const car: Car = {
+  brand: "Volkswagen Typ 1",
+  year: 1938
+}
+const printCar = (car: Car) => {
+  console.log("Brand: ", car.brand, " Year: ", car.year);
+}
+printCar(car)
+
 
 
 /**********************************  
