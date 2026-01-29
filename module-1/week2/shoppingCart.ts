@@ -1,4 +1,13 @@
-// Step 1: Turn this into an enum)
+//Step 1: Turn this into an enum)
+/*// works with: 'node --experimental-transform-types shoppingCart.ts'
+enum Categories {
+    ELECTRONICS = 'Electronics',
+    GROCERIES = 'Groceries',
+    CLOTHING = 'Clothing',
+}
+*/
+
+// works with: 'node shoppingCart.ts'
 const Categories = {
     ELECTRONICS: 'Electronics',
     GROCERIES: 'Groceries',
@@ -8,6 +17,7 @@ const Categories = {
 // Declaring type from 'read only object' as enum and using keys: ELECTRONICS, GROCERIES, CLOTHING
 type Categories = (typeof Categories)[keyof typeof Categories];
 
+// Create a Product interface
 interface Product {
     id: number;
     name: string;
@@ -31,14 +41,14 @@ const addToCart = (product: Product): void => {
     console.log(`${product.name} has been added to your cart.`);
 };
 
-// Step 5: Function to calculate the total price of the cart (using arrow function)
+// Step 5: Function to calculate the total price of the cart
 const calculateTotal = (cart: Product[]): string => {
     let total = 0;
     cart.forEach((item) => total += item.price);
     return total.toFixed(2);
 };
 
-// Step 6: Function to display the cart contents (using arrow function)
+// Step 6: Function to display the cart contents
 const displayCart = (cart: Product[]): void => {
     if (cart.length === 0) {
         console.log('Your cart is empty.');
@@ -49,6 +59,7 @@ const displayCart = (cart: Product[]): void => {
     cart.forEach((item) => {
         console.log(`- ${item.name} (${item.category}): $${item.price}`);
     });
+    console.table(cart);
     // last print out total cost
     console.log(`Total: $${calculateTotal(cart)}`);
 };
@@ -56,9 +67,13 @@ const displayCart = (cart: Product[]): void => {
 // Step 7: Simulate adding products to the cart and displaying it
 addToCart(products[0]); // Adding Laptop
 addToCart(products[2]); // Adding Bananas
+
+console.log("\nDisplay shopping cart: \n");
 displayCart(shoppingCart);
 
-console.log("*** Add some more product to the cart ***");
+console.log("\n*** Add some more product to the cart ***\n");
 
 addToCart(products[1]); // Adding T-Shirt
+
+console.log("\nDisplay shopping cart: \n");
 displayCart(shoppingCart);
