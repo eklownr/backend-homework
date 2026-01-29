@@ -192,19 +192,21 @@ calculate(2, 5, "/", printCalcResult);
 */
 
 // 10) Chained Callbacks 
-type stepFunk = (step: stepFunk) => void;
+type stepFunk = (step?: stepFunk) => void;
 
 const step1 =  (step: stepFunk) => {
+    step = step2;
     setTimeout(() => {
         console.log("Step 1 done.");
-        step(step2) 
+        step() 
     },1000);  
 };
 
 const step2 =  (step: stepFunk) => {
+    step = step3;
     setTimeout(() => {
         console.log("Step 2 done.");
-        step(step3) 
+        step() 
     },1000);  
 };
 
@@ -214,4 +216,4 @@ const step3  =  (step: stepFunk) => {
     },1000);  
 };
 
-step1(step2)
+step1()
