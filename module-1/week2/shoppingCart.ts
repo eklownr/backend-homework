@@ -49,17 +49,22 @@ const calculateTotal = (cart: Product[]): string => {
 };
 
 // Step 6: Function to display the cart contents
-const displayCart = (cart: Product[]): void => {
+type View = "list" | "table";
+const displayCart = (cart: Product[], view: View = "list"): void => {
     if (cart.length === 0) {
         console.log('Your cart is empty.');
         return;
     }
+
     // if cart is not empty, print all items
     console.log('Your cart contains:');
-    cart.forEach((item) => {
-        console.log(`- ${item.name} (${item.category}): $${item.price}`);
-    });
-    console.table(cart);
+    if (view === "table") {
+        console.table(cart);
+    } else {
+        cart.forEach((item) => {
+            console.log(`- ${item.name} (${item.category}): $${item.price}`);
+        });
+    }
     // last print out total cost
     console.log(`Total: $${calculateTotal(cart)}`);
 };
@@ -68,12 +73,12 @@ const displayCart = (cart: Product[]): void => {
 addToCart(products[0]); // Adding Laptop
 addToCart(products[2]); // Adding Bananas
 
-console.log("\nDisplay shopping cart: \n");
+console.log("\nDisplay shopping cart:");
 displayCart(shoppingCart);
 
-console.log("\n*** Add some more product to the cart ***\n");
+console.log("\n*** Add some more product to the cart ***");
 
 addToCart(products[1]); // Adding T-Shirt
 
-console.log("\nDisplay shopping cart: \n");
-displayCart(shoppingCart);
+console.log("\nDisplay shopping cart as table:");
+displayCart(shoppingCart, "table");
