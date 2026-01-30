@@ -9,38 +9,56 @@ import * as readline from 'readline';
 /*******************************/
 
 
-type ColorCode = 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'reset';
-// use: console.log(color('red', 'Detta är rätt!'));
+// ANSI escape-code 
+const Color = {
+    RED: "\x1b[31m",
+    GREEN: "\x1b[32m",
+    YELLOW: "\x1b[33m",
+    ORANGE: "\x1b[38;5;166m", // use 256-color for orange
+    BLUE: "\x1b[34m",
+    MAGENTA: "\x1b[35m",
+    CYAN: "\x1b[36m",
+    PURPLE: "\x1b[35m",
+    RESET: "\x1b[0m"
+}as const;
+
+console.log(Color.RED + "Red" + Color.RESET + "White" + Color.PURPLE + "Purble.");
+
+
+// Color arrow function return colorized string
+// use: console.log(color('red', 'This is red!'));
+type ColorCode = 'red' | 'green' | 'orange' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'purple' | 'reset';
 const color = (colorCode: ColorCode, value: string): string => {
-  const colors: { [key: string]: string } = {
-    red: '\x1b[31m',
-    green: '\x1b[32m',
-    yellow: '\x1b[33m',
-    orange: '\x1b[38;5;166m', // use 256-color for orange
-    blue: '\x1b[34m',
-    magenta: '\x1b[35m',
-    cyan: '\x1b[36m',
-    reset: '\x1b[0m'
-  };
-  return `${colors[colorCode] || colors.reset}${value}${colors.reset}`;
+    const colors: { [key: string]: string } = {
+        red: '\x1b[31m',
+        green: '\x1b[32m',
+        yellow: '\x1b[33m',
+        orange: '\x1b[38;5;166m', // use 256-color for orange
+        blue: '\x1b[34m',
+        magenta: '\x1b[35m',
+        cyan: '\x1b[36m',
+        purple: '\x1b[35m',
+        reset: '\x1b[0m'
+    };
+    return `${colors[colorCode] || colors.reset}${value}${colors.reset}`;
 };
 
 
 // Use: formatDate(new Date())); Get: => '2026-30-01 - 12:34'
 function formatDate(date: Date): string {
-  const year = date.getFullYear();
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  return `${year}-${day}-${month} - ${hours}:${minutes}`;
+    const year = date.getFullYear();
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${year}-${day}-${month} - ${hours}:${minutes}`;
 }   
 
 // create type TodoPost
 type TodoPost = {
-  id?: number;
-  todo: string;
-  date: string; 
+    id?: number;
+    todo: string;
+    date: string; 
 };   
 
 // create emty list[], to save data, of type TodoPost 
@@ -68,38 +86,40 @@ const add = (post: TodoPost): void => {
 //*******************************
 // interface for input and output
 const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  terminal: true,
+    input: process.stdin,
+    output: process.stdout,
+    terminal: true,
 });
 
 rl.on('close', () => {
-  console.log('Closing TODO App.');
-  process.exit(0);
+    console.log(color("green",'== Closing TODO App! =='));
+    process.exit(0);
 });   
 
 
 //*******************************
 // Ask to add new todo post
 function askToAddNewPost(): void {
-  rl.question("*** Add todo (or 'q' to quit): ", (input: string) => {
-    const trimmed = input.trim();
-    if (trimmed.toLowerCase() === "q") {
-      console.log("Go back to main");
-      message();
-      main(); // run main again
-      return;
-    }
-    if (trimmed) {
-      const newPost: TodoPost = {
-        todo: trimmed,
-        date: formatDate(new Date()),
-      };
-      add(newPost);
-    } else {
-      console.log("empty input, try again.");
-    }
-    askToAddNewPost(); // ask again, recursive call instead of loop.
+    console.log(Color.YELLOW + "*******************************");
+    
+    rl.question("*** Add todo "+Color.RESET+"(or 'q' to quit): ", (input: string) => {
+        const trimmed = input.trim();
+        if (trimmed.toLowerCase() === "q") {
+            console.log(color("magenta", "Go back to main"));
+            message();
+            main(); // run main again
+            return;
+        }
+        if (trimmed) {
+            const newPost: TodoPost = {
+            todo: trimmed,
+            date: formatDate(new Date()),
+        };
+        add(newPost);
+        } else {
+            console.log("Empty input, try again.");
+        }
+        askToAddNewPost(); // ask again, recursive call instead of loop.
   });
 };
 
@@ -128,6 +148,7 @@ function listAll(): void {
 
  
 //*******************************
+// ==> TODO delete by ID <==
 function delPostByID(id: number): void {
     if (id >= 0 && id < todoStorage.length) {
         todoStorage.splice(id, 1);
@@ -141,7 +162,7 @@ function delPostByID(id: number): void {
 
 
 //*******************************
-// ask witch post to delete
+// Ask witch post to delete
 function deletePost() {
     console.log(color("red", "*******************************"));
     rl.question(" ==> Delete by ID number: (or 'q' to quit): ", (input: string) => {
@@ -172,10 +193,10 @@ function deletePost() {
 // main function takes care of user input
 //*******************************
 function main() {    
-    rl.question("What do you want to do? ('q' to quit): ", (input: string) => {
+    rl.question(color("blue", "==> ") +"What do you want to do? ", (input: string) => {
         const trimmed = input.trim().toLowerCase();
         if (trimmed === "q") {
-            console.log("Bye ...");
+            console.log(color("magenta","Bye ..."));
             rl.close();
             return;
         }
@@ -197,7 +218,7 @@ function main() {
         else if (trimmed === "d") {
             deletePost();   
         }else {
-            console.log("empty input, try again.");
+            console.log(color("orange","empty input, try again."));
             main()
         }
 
@@ -210,22 +231,3 @@ message();
 
 // runing main function
 main();
-
-
-
-/*
-
-// TEST to add new post
-const newPost: TodoPost = {
-    todo: "Buy groceries",
-    date: formatDate(new Date()),
-};
-const newPost2: TodoPost = {
-    todo: "Buy some stuff...",
-    date: formatDate(new Date()),
-};
-
-add(newPost);
-add(newPost2);
-
-*/
