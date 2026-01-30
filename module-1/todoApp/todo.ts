@@ -59,8 +59,12 @@ type TodoPost = {
     id?: number;
     todo: string;
     date: string; 
-    done?: boolean;
-};   
+    done?: Done;
+}; 
+enum Done {
+  DONE = "completed",
+  ACTIVE = "active",
+}   
 
 // create emty list[], to save data, of type TodoPost 
 const todoStorage: TodoPost[] = [];
@@ -76,7 +80,7 @@ const add = (post: TodoPost): void => {
         } else {
             ID = Math.max(ID, post.id); // make sure ID is the highest
         }
-        post.done = false;
+        post.done = Done.ACTIVE;
         todoStorage.push(post);
         console.log("Post added", post.id, post.todo, post.date);
     } else {
@@ -156,9 +160,9 @@ const removePostById = (id: number): void => {
     const index = todoStorage.findIndex(post => post.id === id);
     if (index !== -1) {
         todoStorage.splice(index, 1);
-        console.log(Color.RED + `Post with id ${id} has been removed.`);
+        console.log(Color.RED + `Post with id ${id} has been removed.` + Color.RESET);
     } else {
-        console.log(Color.YELLOW + `No post found with id ${id}.`);
+        console.log(Color.YELLOW + `No post found with id ${id}.` + Color.RESET);
     }
 };   
 
@@ -167,11 +171,11 @@ const removePostById = (id: number): void => {
 // Mark post as done by ID 
 const markAsDone = (id: number, done: boolean = true): void => {
     const post = todoStorage.find(p => p.id === id);
-        if (post) {
-            post.done = done ? true : false; 
-            console.log(Color.GREEN + `Post with id ${id} is ${done ? 'complete' : 'incomplete'}.`);
+        if (post) { // TODO
+            post.done = Done.DONE ? Done.DONE : Done.ACTIVE; 
+            console.log(Color.GREEN + `Post with id ${id} is ${done ? 'complete' : 'incomplete'}.`+ Color.RESET);
         } else {
-        console.log(Color.YELLOW + `No post found with id ${id}.`);
+        console.log(Color.YELLOW + `No post found with id ${id}.` + Color.RESET);
         }
 };   
 
@@ -265,8 +269,8 @@ main();
 
 
 // TEST
-add({ id: 1, todo: "Buy milk", date: "2023-01-01", done: false });
-add({ id: 2, todo: "Buy eggs", date: "2023-01-02", done: false });
-add({ id: 3, todo: "Buy bread", date: "2023-01-03", done: false });
-markAsDone(1); // Markerar id 1 som klar
-markAsDone(2, false); // Avmarkerar id 2   
+// add({ id: 1, todo: "Buy milk", date: "2023-01-01", done: false });
+// add({ id: 2, todo: "Buy eggs", date: "2023-01-02", done: false });
+// add({ id: 3, todo: "Buy bread", date: "2023-01-03", done: false });
+// markAsDone(1); // Markerar id 1 som klar
+// markAsDone(2, false); // Avmarkerar id 2   
