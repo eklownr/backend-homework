@@ -179,7 +179,7 @@ function deletePost() {
             const id = parseInt(trimmed);
             if (id >= 0 && id < todoStorage.length) {
                 todoStorage.splice(id, 1);
-                console.log(color("orange","Post deleted"));
+                console.log(color("red","Post deleted"));
             } else {
                 console.log("Invalid ID, try again.");
             }
@@ -221,7 +221,7 @@ function main() {
         else if (trimmed === "d") {
             deletePost();   
         }else {
-            console.log(color("orange","empty input, try again."));
+            console.log(color("orange","Empty input, try again."));
             main()
         }
 
