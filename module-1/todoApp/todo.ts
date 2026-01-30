@@ -59,11 +59,12 @@ type TodoPost = {
     id?: number;
     todo: string;
     date: string; 
+    done?: string;
 };   
 
 // create emty list[], to save data, of type TodoPost 
 const todoStorage: TodoPost[] = [];
-var ID = 0;
+var ID = 0; // Global id
 
 
 //*******************************
@@ -71,10 +72,11 @@ var ID = 0;
 const add = (post: TodoPost): void => {
     if (post) {
         if (!post.id) {
-            post.id = ++ID; // Använd pre-increment för att undvika dubbel-ID
+            post.id = ++ID; // pre-increment to avoid duplicate
         } else {
-            ID = Math.max(ID, post.id); // Se till att ID är högst det högsta existerande
+            ID = Math.max(ID, post.id); // make sure ID is the highest
         }
+        post.done = "TODO";
         todoStorage.push(post);
         console.log("Post added", post.id, post.todo, post.date);
     } else {
@@ -165,7 +167,7 @@ function delPostByID(id: number): void {
 // Ask witch post to delete
 function deletePost() {
     console.log(color("red", "*******************************"));
-    rl.question(" ==> Delete by ID number: (or 'q' to quit): ", (input: string) => {
+    rl.question(color("orange", "==> Delete by ID number: ") + "( or 'q' to quit): ", (input: string) => {
     const trimmed = input.trim().toLowerCase();
         if (trimmed === "q") {
             console.log(color("magenta", "Go back to main"));
@@ -177,14 +179,15 @@ function deletePost() {
             const id = parseInt(trimmed);
             if (id >= 0 && id < todoStorage.length) {
                 todoStorage.splice(id, 1);
-                console.log("Post deleted");
+                console.log(color("orange","Post deleted"));
             } else {
                 console.log("Invalid ID, try again.");
             }
         } else {
             console.log("Empty input, try again.");
         }
-        deletePost(); // run again, stop with 'q'
+        listAll();
+        //deletePost(); // run again, stop with 'q'
     })
 }
 
