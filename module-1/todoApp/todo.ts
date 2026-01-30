@@ -48,20 +48,6 @@ const add = (post: TodoPost): void => {
 };   
 
 
-// TEST to add new post
-const newPost: TodoPost = {
-    todo: "Buy groceries",
-    date: formatDate(new Date()),
-};
-const newPost2: TodoPost = {
-    todo: "Buy some stuff...",
-    date: formatDate(new Date()),
-};
-
-add(newPost);
-add(newPost2);
-
-
 //*******************************
 // interface for input and output
 const rl = readline.createInterface({
@@ -79,7 +65,7 @@ rl.on('close', () => {
 //*******************************
 // Ask to add new todo post
 function askToAddNewPost(): void {
-  rl.question("Add todo (or 'q' to quit): ", (input: string) => {
+  rl.question("*** Add todo (or 'q' to quit): ", (input: string) => {
     const trimmed = input.trim();
     if (trimmed.toLowerCase() === "q") {
       console.log("Go back to main");
@@ -105,12 +91,13 @@ function askToAddNewPost(): void {
 // Welcome message
 function message() {
     console.log("************************************'");
-    console.log("Welcome to ToDo App!");
-    console.log("q - to quit");
-    console.log("a - to add new post");
-    console.log("l - to list all post as a table");
-    console.log("d - to delete post");
-    console.log("m - to show welcome message");
+    console.log("== Welcome to ToDo App! ==");
+    console.log("q - quit");
+    console.log("a - add new post");
+    console.log("l - list all post as a table");
+    console.log("d - delete post");
+    console.log("c - clear screen");
+    console.log("m - show welcome message");
     console.log("************************************'");
 }
 
@@ -139,7 +126,7 @@ function delPostByID(id: number): void {
 //*******************************
 // ask witch post to delete
 function deletePost() {
-    rl.question("Delete by ID number: (or 'q' to quit): ", (input: string) => {
+    rl.question(" ==> Delete by ID number: (or 'q' to quit): ", (input: string) => {
     const trimmed = input.trim().toLowerCase();
         if (trimmed === "q") {
             console.log("Go back to main");
@@ -184,6 +171,11 @@ function main() {
             message();   
             main();
         }
+        else if (trimmed === "c") {
+            console.clear();
+            message();   
+            main();
+        }
         else if (trimmed === "d") {
             deletePost();   
         }else {
@@ -200,3 +192,22 @@ message();
 
 // runing main function
 main();
+
+
+
+/*
+
+// TEST to add new post
+const newPost: TodoPost = {
+    todo: "Buy groceries",
+    date: formatDate(new Date()),
+};
+const newPost2: TodoPost = {
+    todo: "Buy some stuff...",
+    date: formatDate(new Date()),
+};
+
+add(newPost);
+add(newPost2);
+
+*/
