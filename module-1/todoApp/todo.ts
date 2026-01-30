@@ -136,7 +136,8 @@ function message() {
     console.log("l - list all post as a table");
     console.log("d - delete post");
     console.log("c - clear screen");
-    console.log("m - show welcome message");
+    console.log("s - set post as done");
+    console.log("m - menu message");
     console.log(color("cyan", "************************************'"));
 }
 
@@ -163,22 +164,14 @@ const removePostById = (id: number): void => {
 
 
 //*******************************
-// Set post as done by ID 
-const setDone = (id: number): void => {
-    const index = todoStorage.findIndex(post => post.id === id);
-    if (index !== -1) {
-        console.log(Color.RED + `Post with id ${id} has been removed.`);
-    } else {
-        console.log(Color.YELLOW + `No post found with id ${id}.`);
-    }
-};   
+// Mark post as done by ID 
 const markAsDone = (id: number, done: boolean = true): void => {
     const post = todoStorage.find(p => p.id === id);
         if (post) {
             post.done = done ? true : false; 
-            console.log(`Post med id ${id} markerad som ${done ? 'klar' : 'ej klar'}.`);
+            console.log(Color.GREEN + `Post with id ${id} is ${done ? 'complete' : 'incomplete'}.`);
         } else {
-        console.log(`Ingen post hittades med id ${id}.`);
+        console.log(Color.YELLOW + `No post found with id ${id}.`);
         }
 };   
 
@@ -245,6 +238,10 @@ function main() {
         else if (trimmed === "m") {
             message();   
             main();
+        }
+        else if (trimmed === "s") {
+            askToSetAsDone();   
+            //main();
         }
         else if (trimmed === "c") {
             console.clear();
