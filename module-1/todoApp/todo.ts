@@ -59,7 +59,7 @@ type TodoPost = {
     id?: number;
     todo: string;
     date: string; 
-    done?: string;
+    done?: boolean;
 };   
 
 // create emty list[], to save data, of type TodoPost 
@@ -76,7 +76,7 @@ const add = (post: TodoPost): void => {
         } else {
             ID = Math.max(ID, post.id); // make sure ID is the highest
         }
-        post.done = "TODO";
+        post.done = false;
         todoStorage.push(post);
         console.log("Post added", post.id, post.todo, post.date);
     } else {
@@ -150,22 +150,42 @@ function listAll(): void {
 
  
 //*******************************
-// ==> TODO delete by ID <==
-function delPostByID(id: number): void {
-    if (id >= 0 && id < todoStorage.length) {
-        todoStorage.splice(id, 1);
-        console.log("Post deleted");
+// Remove post by ID 
+const removePostById = (id: number): void => {
+    const index = todoStorage.findIndex(post => post.id === id);
+    if (index !== -1) {
+        todoStorage.splice(index, 1);
+        console.log(Color.RED + `Post with id ${id} has been removed.`);
     } else {
-        console.log("Invalid ID, try again.");
-        deletePost(); // ask again with ID to remove
+        console.log(Color.YELLOW + `No post found with id ${id}.`);
     }
-}
-
+};   
 
 
 //*******************************
-// Ask witch post to delete
-function deletePost() {
+// Set post as done by ID 
+const setDone = (id: number): void => {
+    const index = todoStorage.findIndex(post => post.id === id);
+    if (index !== -1) {
+        console.log(Color.RED + `Post with id ${id} has been removed.`);
+    } else {
+        console.log(Color.YELLOW + `No post found with id ${id}.`);
+    }
+};   
+const markAsDone = (id: number, done: boolean = true): void => {
+    const post = todoStorage.find(p => p.id === id);
+        if (post) {
+            post.done = done ? true : false; 
+            console.log(`Post med id ${id} markerad som ${done ? 'klar' : 'ej klar'}.`);
+        } else {
+        console.log(`Ingen post hittades med id ${id}.`);
+        }
+};   
+
+
+//*******************************
+// Ask to remove post
+function askToRemovePost() {
     console.log(color("red", "*******************************"));
     rl.question(color("orange", "==> Delete by ID number: ") + "( or 'q' to quit): ", (input: string) => {
     const trimmed = input.trim().toLowerCase();
@@ -177,24 +197,37 @@ function deletePost() {
         }
         if (trimmed) {
             const id = parseInt(trimmed);
-            if (id >= 0 && id < todoStorage.length) {
-                todoStorage.splice(id, 1);
-                console.log(color("red","Post deleted"));
-            } else {
-                console.log("Invalid ID, try again.");
-            }
-        } else {
-            console.log("Empty input, try again.");
+            removePostById(id);
+            listAll();
         }
-        listAll();
-        //deletePost(); // run again, stop with 'q'
-    })
+    });
 }
 
 
 //*******************************
-// main function takes care of user input
-//*******************************
+// Ask to set post as done
+function askToSetAsDone() {
+    console.log(color("blue", "*******************************"));
+    rl.question(color("orange", "==> Set as done, by ID number: ") + "( or 'q' to quit): ", (input: string) => {
+    const trimmed = input.trim().toLowerCase();
+        if (trimmed === "q") {
+            console.log(color("magenta", "Go back to main"));
+            message();
+            main(); // run main again
+            return;
+        }
+        if (trimmed) {
+            const id = parseInt(trimmed);
+            markAsDone(id);
+            listAll();
+        }
+    });
+}
+
+
+//*****************************************//
+// main function takes care of user input  //
+//*****************************************//
 function main() {    
     rl.question(color("blue", "==> ") +"What do you want to do? ", (input: string) => {
         const trimmed = input.trim().toLowerCase();
@@ -219,14 +252,12 @@ function main() {
             main();
         }
         else if (trimmed === "d") {
-            deletePost();   
+            askToRemovePost();   
         }else {
             console.log(color("orange","Empty input, try again."));
             main()
         }
-
     });
-   //main(); // run until 'q', or let other func run me again?
 }
 
 // welcome message
@@ -234,3 +265,11 @@ message();
 
 // runing main function
 main();
+
+
+// TEST
+add({ id: 1, todo: "Buy milk", date: "2023-01-01", done: false });
+add({ id: 2, todo: "Buy eggs", date: "2023-01-02", done: false });
+add({ id: 3, todo: "Buy bread", date: "2023-01-03", done: false });
+markAsDone(1); // Markerar id 1 som klar
+markAsDone(2, false); // Avmarkerar id 2   
