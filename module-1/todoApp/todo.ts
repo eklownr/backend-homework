@@ -9,6 +9,23 @@ import * as readline from 'readline';
 /*******************************/
 
 
+type ColorCode = 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'reset';
+// use: console.log(color('red', 'Detta är rätt!'));
+const color = (colorCode: ColorCode, value: string): string => {
+  const colors: { [key: string]: string } = {
+    red: '\x1b[31m',
+    green: '\x1b[32m',
+    yellow: '\x1b[33m',
+    orange: '\x1b[38;5;166m', // use 256-color for orange
+    blue: '\x1b[34m',
+    magenta: '\x1b[35m',
+    cyan: '\x1b[36m',
+    reset: '\x1b[0m'
+  };
+  return `${colors[colorCode] || colors.reset}${value}${colors.reset}`;
+};
+
+
 // Use: formatDate(new Date())); Get: => '2026-30-01 - 12:34'
 function formatDate(date: Date): string {
   const year = date.getFullYear();
@@ -90,15 +107,15 @@ function askToAddNewPost(): void {
 //*******************************
 // Welcome message
 function message() {
-    console.log("************************************'");
-    console.log("== Welcome to ToDo App! ==");
+    console.log(color("cyan", "************************************'"));
+    console.log(color("green", "== Welcome to ToDo App! =="));
     console.log("q - quit");
     console.log("a - add new post");
     console.log("l - list all post as a table");
     console.log("d - delete post");
     console.log("c - clear screen");
     console.log("m - show welcome message");
-    console.log("************************************'");
+    console.log(color("cyan", "************************************'"));
 }
 
 
@@ -126,10 +143,11 @@ function delPostByID(id: number): void {
 //*******************************
 // ask witch post to delete
 function deletePost() {
+    console.log(color("red", "*******************************"));
     rl.question(" ==> Delete by ID number: (or 'q' to quit): ", (input: string) => {
     const trimmed = input.trim().toLowerCase();
         if (trimmed === "q") {
-            console.log("Go back to main");
+            console.log(color("magenta", "Go back to main"));
             message();
             main(); // run main again
             return;
