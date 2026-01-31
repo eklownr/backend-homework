@@ -1,5 +1,6 @@
 import * as readline from 'readline';
 import {Color, color, formatDate} from './formatUtils'
+
 /*******************************
  * @author eklownr
  * @version 1.0
@@ -52,7 +53,7 @@ const rl = readline.createInterface({
     output: process.stdout,
     terminal: true,
 });
-
+// event on close
 rl.on('close', () => {
     console.log(color("green",'== Closing TODO App! =='));
     process.exit(0);
@@ -65,19 +66,19 @@ function askToAddNewPost(): void {
     console.log(Color.YELLOW + "*******************************");
     
     rl.question("*** Add todo "+Color.RESET+"(or 'q' to quit): ", (input: string) => {
-        const trimmed = input.trim();
-        if (trimmed.toLowerCase() === "q") {
+        const answer = input.trim();
+        if (answer.toLowerCase() === "q") {
             console.log(color("magenta", "Go back to main"));
             message();
             main(); // run main again
             return;
         }
-        if (trimmed) {
+        if (answer) {
             const newPost: TodoPost = {
-            todo: trimmed,
+            todo: answer,
             date: formatDate(new Date()),
-        };
-        add(newPost);
+            };
+            add(newPost);
         } else {
             console.log("Empty input, try again.");
         }
@@ -96,7 +97,7 @@ function message() {
     console.log("l - list all post as a table");
     console.log("d - delete post");
     console.log("c - clear screen");
-    console.log("s - set post as done");
+    console.log("s - set post as done/active");
     console.log("m - menu message");
     console.log(color("cyan", "************************************'"));
 }
@@ -144,7 +145,7 @@ const markAsDone = (id: number): void => {
 // Ask to remove post
 function askToRemovePost() {
     console.log(color("red", "*******************************"));
-    rl.question(color("orange", "==> Delete by ID number: ") + "( or 'q' to quit): ", (input: string) => {
+    rl.question(color("orange", "==> Delete by ID number: ") + "('q' to quit or 'delall'): ", (input: string) => {
     const trimmed = input.trim().toLowerCase();
         if (trimmed === "q") {
             console.log(color("magenta", "Go back to main"));
@@ -152,11 +153,17 @@ function askToRemovePost() {
             main(); // run main again
             return;
         }
-        if (trimmed) {
-            const id = parseInt(trimmed);
-            removePostById(id);
+        if (trimmed === "delall") {
+            todoStorage.splice(0, todoStorage.length);
+            console.log(Color.RED + `All post/task has been removed.` + Color.RESET);
             listAll();
+            return;
         }
+        else if (trimmed) {
+           const id = parseInt(trimmed);
+           removePostById(id);
+           listAll();
+       }
     });
 }
 
@@ -165,7 +172,7 @@ function askToRemovePost() {
 // Ask to set post as done
 function askToSetAsDone() {
     console.log(color("blue", "*******************************"));
-    rl.question(color("orange", "==> Set as done, by ID number: ") + "( or 'q' to quit): ", (input: string) => {
+    rl.question(color("orange", "==> Set as done/active, by ID number: ") + "( or 'q' to quit): ", (input: string) => {
     const trimmed = input.trim().toLowerCase();
         if (trimmed === "q") {
             console.log(color("magenta", "Go back to main"));
