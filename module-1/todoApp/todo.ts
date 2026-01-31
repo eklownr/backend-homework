@@ -1,5 +1,5 @@
 import * as readline from 'readline';
-import {Color, color} from './color'
+import {Color, color, formatDate} from './formatUtils'
 /*******************************
  * @author eklownr
  * @version 1.0
@@ -45,7 +45,7 @@ const color = (colorCode: ColorCode, value: string): string => {
     return `${colors[colorCode] || colors.reset}${value}${colors.reset}`;
 };
 
-*/
+
 
 
 // Use: formatDate(new Date())); Get: => '2026-30-01 - 12:34'
@@ -57,6 +57,8 @@ function formatDate(date: Date): string {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${year}-${day}-${month} - ${hours}:${minutes}`;
 }   
+
+*/
 
 // create type TodoPost
 type TodoPost = {
@@ -173,11 +175,15 @@ const removePostById = (id: number): void => {
 
 //*******************************
 // Mark post as done by ID 
-const markAsDone = (id: number, done: boolean = true): void => {
+const markAsDone = (id: number): void => {
     const post = todoStorage.find(p => p.id === id);
-        if (post) { // TODO
-            post.done = Done.DONE ? Done.DONE : Done.ACTIVE; 
-            console.log(Color.GREEN + `Post with id ${id} is ${done ? 'complete' : 'incomplete'}.`+ Color.RESET);
+        if (post) { 
+            if (post.done === Done.DONE) {
+                post.done = Done.ACTIVE;
+            } else { 
+                post.done = Done.DONE;
+            }; 
+            console.log(Color.GREEN + `Post with id ${id} is ${post.done}!`+ Color.RESET);
         } else {
         console.log(Color.YELLOW + `No post found with id ${id}.` + Color.RESET);
         }
