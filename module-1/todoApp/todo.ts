@@ -24,9 +24,32 @@ enum Done {
   ACTIVE = "active",
 }   
 
-// create emty list[], to save data, of type TodoPost 
+
+/**
+ * Write and save data to json-fil
+ * @param db - TodoPost[]
+ * @param filePath - Defult "todoDB.json"
+ */
+async function saveDB( db: TodoPost[], filePath?: string): Promise<void> {
+    if (!filePath) {filePath = "todoDB.json"};
+    // Write to todoDB.json
+    await writeJsonFile(filePath, db);
+    console.log("Data written to ", filePath);
+}
+
+// return saved data from <filmname>.json
+async function readDB(filePath?: string): Promise<TodoPost[]>  {
+    if (!filePath) {filePath = "todoDB.json"};
+    // Read from todoDB.json
+    const data = await readJsonFile<TodoPost[]>(filePath);
+    console.log('Data read from todoDB.json:', filePath);
+    return data;
+}
+// let todoStorage: TodoPost[] = await readDB();  
+
+// Read in data from json and save it to todoStorage
 const todoStorage: TodoPost[] = [];
-var ID = 0; // Global id
+var ID = 0; // Global id for TodoPost.id
 
 
 //*******************************
@@ -54,36 +77,13 @@ const rl = readline.createInterface({
     output: process.stdout,
     terminal: true,
 });
-// event on close
+
+// event on close. Save todoStore-data to <todoDB>.json-file
 rl.on('close', () => {
     console.log(color("green",'== Closing TODO App! =='));
-
+    //saveDB(todoStorage).catch(console.error);
     process.exit(0);
 });   
-// test.ts
-
-interface Todo {
-  id: number;
-  text: string;
-  completed: boolean;
-}
-
-
-async function saveDB( db: TodoPost[], filePath?: string): Promise<void> {
-    if (!filePath) {filePath = "todoDB.json"};
-
-    // Write to todoDB.json
-    await writeJsonFile(filePath, db);
-    console.log("Data written to ", filePath);
-}
-
-async function readDB(filePath: string): Promise<TodoPost[]>  {
-    // Read from todoDB.json
-    const data = await readJsonFile<TodoPost[]>(filePath);
-    console.log('Data read from todoDB.json:', data);
-    return data;
-}
-
 
 
 //*******************************
@@ -245,9 +245,9 @@ function main() {
             main();
         }
         else if (trimmed === "w") {
-            saveDB(todoStorage).catch(console.error);   ;   
+            saveDB(todoStorage).catch(console.error);
+            main();  
         }
-
         else if (trimmed === "d") {
             askToRemovePost();   
         }else {

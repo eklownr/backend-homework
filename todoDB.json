@@ -1,14 +1,32 @@
 [
     {
-        "todo": "laga mat",
-        "date": "2026-31-01 - 14:35",
+        "todo": "mata katten",
+        "date": "2026-31-01 - 15:34",
         "id": 1,
+        "done": "completed"
+    },
+    {
+        "todo": "learn js",
+        "date": "2026-31-01 - 15:34",
+        "id": 2,
         "done": "active"
     },
     {
-        "todo": "klappa katten",
-        "date": "2026-31-01 - 14:35",
-        "id": 2,
+        "todo": "learn ts",
+        "date": "2026-31-01 - 15:34",
+        "id": 3,
+        "done": "active"
+    },
+    {
+        "todo": "learn mongodb",
+        "date": "2026-31-01 - 15:34",
+        "id": 4,
+        "done": "active"
+    },
+    {
+        "todo": "learn REACT",
+        "date": "2026-31-01 - 15:35",
+        "id": 5,
         "done": "active"
     }
 ]
