@@ -2,6 +2,7 @@ import * as readline from 'readline';
 import {Color, color, formatDate} from './formatUtils.js'
 import * as fs from 'fs';
 
+
 /*******************************
  * @author eklownr
  * @version 1.0
@@ -9,6 +10,7 @@ import * as fs from 'fs';
  * @see https://github.com/eklownr
  * run: 'tsx todo.ts' (Install global: 'npm install -g tsx')
 /*******************************/
+
 
 // create type TodoPost
 type TodoPost = {
@@ -18,6 +20,7 @@ type TodoPost = {
     done?: Done;
 }; 
 
+
 // enum for checking if task is done
 enum Done {
   DONE = "completed",
@@ -25,6 +28,7 @@ enum Done {
 }   
 
 
+// Globals and constants
 const filePath = './module-1/todoApp/todoDB.json';
 var ID = 0; // Global id for TodoPost.id
 let todoStorage: TodoPost[] = [];
@@ -47,30 +51,13 @@ if (fs.existsSync(filePath)) {
 
 
 //*******************************
-// Add new post to storage
-const add = (post: TodoPost): void => {
-    if (post) {
-        if (!post.id) {
-            post.id = ++ID; // pre-increment to avoid duplicate
-        } else {
-            ID = Math.max(ID, post.id); // make sure ID is the highest
-        }
-        post.done = Done.ACTIVE;
-        todoStorage.push(post);
-        console.log("Post added", post.id, post.todo, post.date);
-    } else {
-        console.log("Post is empty");
-    }
-};   
-
-
-//*******************************
 // interface for input and output
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
     terminal: true,
 });
+
 
 // event on close. Save todoStore-data to <todoDB>.json-file
 rl.on('close', () => {
@@ -82,11 +69,28 @@ rl.on('close', () => {
 
 
 //*******************************
+// Add new post to storage
+const add = (post: TodoPost): void => {
+    if (post) {
+        if (!post.id) {
+            post.id = ++ID; // pre-increment to avoid duplicate
+        } else {
+            ID = Math.max(ID, post.id); // make sure ID is the highest
+        }
+        post.done = Done.ACTIVE;
+        todoStorage.push(post);
+        console.log("Add post: ", post.id, post.todo, post.date);
+    } else {
+        console.log("Post is empty");
+    }
+};   
+
+
+//*******************************
 // Ask to add new todo post
 function askToAddNewPost(): void {
-    console.log(Color.YELLOW + "*******************************");
-    
-    rl.question("*** Add todo "+Color.RESET+"(or 'q' to quit): ", (input: string) => {
+    console.log(color("yellow", "*******************************"));
+    rl.question(color("orange", "==> ") + " Add todo (or 'q' to quit): ", (input: string) => {
         const answer = input.trim();
         if (answer.toLowerCase() === "q") {
             console.log(color("magenta", "Go back to main"));
@@ -107,30 +111,6 @@ function askToAddNewPost(): void {
   });
 };
 
-
-//*******************************
-// Welcome message
-function message() {
-    console.log(color("cyan", "************************************'"));
-    console.log(color("green", "== Welcome to ToDo App! =="));
-    console.log("q - quit");
-    console.log("a - add new post");
-    console.log("l - list all post as a table");
-    console.log("d - delete post");
-    console.log("c - clear screen");
-    console.log("s - set post as done/active");
-    console.log("m - menu message");
-    console.log(color("cyan", "************************************'"));
-}
-
-
-//*******************************
-// list all todo-post
-function listAll(): void {
-    console.table(todoStorage);
-    main(); // run main again
-}
-
  
 //*******************************
 // Remove post by ID 
@@ -142,23 +122,6 @@ const removePostById = (id: number): void => {
     } else {
         console.log(Color.YELLOW + `No post found with id ${id}.` + Color.RESET);
     }
-};   
-
-
-//*******************************
-// Mark post as done by ID 
-const markAsDone = (id: number): void => {
-    const post = todoStorage.find(p => p.id === id);
-        if (post) { 
-            if (post.done === Done.DONE) {
-                post.done = Done.ACTIVE;
-            } else { 
-                post.done = Done.DONE;
-            }; 
-            console.log(Color.GREEN + `Post with id ${id} is ${post.done}!`+ Color.RESET);
-        } else {
-        console.log(Color.YELLOW + `No post found with id ${id}.` + Color.RESET);
-        }
 };   
 
 
@@ -190,6 +153,23 @@ function askToRemovePost() {
 
 
 //*******************************
+// Mark post as done by ID 
+const markAsDone = (id: number): void => {
+    const post = todoStorage.find(p => p.id === id);
+        if (post) { 
+            if (post.done === Done.DONE) {
+                post.done = Done.ACTIVE;
+            } else { 
+                post.done = Done.DONE;
+            }; 
+            console.log(Color.GREEN + `Post with id ${id} is ${post.done}!`+ Color.RESET);
+        } else {
+        console.log(Color.YELLOW + `No post found with id ${id}.` + Color.RESET);
+        }
+};   
+
+
+//*******************************
 // Ask to set post as done
 function askToSetAsDone() {
     console.log(color("blue", "*******************************"));
@@ -207,6 +187,30 @@ function askToSetAsDone() {
             listAll();
         }
     });
+}
+
+
+//*******************************
+// Welcome message
+function message() {
+    console.log(color("cyan", "************************************'"));
+    console.log(color("green", "== Welcome to ToDo App! =="));
+    console.log("q - quit");
+    console.log("a - add new post");
+    console.log("l - list all post as a table");
+    console.log("d - delete post");
+    console.log("c - clear screen");
+    console.log("s - set post as done/active");
+    console.log("m - menu message");
+    console.log(color("cyan", "************************************'"));
+}
+
+
+//*******************************
+// list all todo-post
+function listAll(): void {
+    console.table(todoStorage);
+    main(); // run main again
 }
 
 
@@ -242,7 +246,7 @@ function main() {
         else if (trimmed === "d") {
             askToRemovePost();   
         }else {
-            console.log(color("orange","Empty input, try again."));
+            console.log(color("orange","Wrong input, try again."));
             main()
         }
     });
