@@ -1,25 +1,25 @@
 [
     {
-        "todo": "Learn callbacks",
-        "date": "2026-31-01 - 19:57",
+        "todo": "learn ts",
+        "date": "2026-31-01 - 20:12",
         "id": 1,
         "done": "active"
     },
     {
-        "todo": "Learn basic js",
-        "date": "2026-31-01 - 19:57",
+        "todo": "learn js",
+        "date": "2026-31-01 - 20:12",
         "id": 2,
         "done": "active"
     },
     {
-        "todo": "Learn basic ts",
-        "date": "2026-31-01 - 19:57",
+        "todo": "feed the cat",
+        "date": "2026-31-01 - 20:12",
         "id": 3,
-        "done": "active"
+        "done": "completed"
     },
     {
-        "todo": "Learn React",
-        "date": "2026-31-01 - 19:57",
+        "todo": "learn mogodb",
+        "date": "2026-31-01 - 20:13",
         "id": 4,
         "done": "active"
     }

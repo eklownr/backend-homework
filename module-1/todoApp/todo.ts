@@ -33,9 +33,15 @@ let todoStorage: TodoPost[] = [];
 //*******************************
 // Read data from json and save it to todoStorage
 if (fs.existsSync(filePath)) {
-  const data = fs.readFileSync(filePath, 'utf-8');
-  todoStorage = data ? JSON.parse(data) : [];
-} else {
+    const data = fs.readFileSync(filePath, 'utf-8');
+    todoStorage = data ? JSON.parse(data) : [];
+    // get the highest ID
+    todoStorage.forEach((post: TodoPost) => {
+        if (post.id) {
+            ID = Math.max(ID, post.id); // make sure ID is the highest
+        }
+    })
+} else { // if file does not exist, create an empty one
   fs.writeFileSync(filePath, JSON.stringify([], null, 4), 'utf-8');
 }   
 
