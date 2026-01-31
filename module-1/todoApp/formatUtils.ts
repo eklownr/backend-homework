@@ -36,7 +36,7 @@ export const color = (colorCode: ColorCode, value: string): string => {
 };
 
 /**
- * Use: formatDate(new Date())); Get: => '2026-30-01 - 12:34'
+ * Use: formatDate(new Date())); Get: => '2026-01-30 - 12:34'
  * @param date - Date object
  * @returns string: "year-day-month - hours:minutes"
  */
