@@ -1,6 +1,6 @@
 import * as readline from 'readline';
-import {Color, color, formatDate} from './formatUtils'
-import { readJsonFile, writeJsonFile } from './fileIO';
+import {Color, color, formatDate} from './formatUtils.js'
+import * as fs from 'fs';
 
 /*******************************
  * @author eklownr
@@ -25,31 +25,19 @@ enum Done {
 }   
 
 
-/**
- * Write and save data to json-fil
- * @param db - TodoPost[]
- * @param filePath - Defult "todoDB.json"
- */
-async function saveDB( db: TodoPost[], filePath?: string): Promise<void> {
-    if (!filePath) {filePath = "todoDB.json"};
-    // Write to todoDB.json
-    await writeJsonFile(filePath, db);
-    console.log("Data written to ", filePath);
-}
-
-// return saved data from <filmname>.json
-async function readDB(filePath?: string): Promise<TodoPost[]>  {
-    if (!filePath) {filePath = "todoDB.json"};
-    // Read from todoDB.json
-    const data = await readJsonFile<TodoPost[]>(filePath);
-    console.log('Data read from todoDB.json:', filePath);
-    return data;
-}
-// let todoStorage: TodoPost[] = await readDB();  
-
-// Read in data from json and save it to todoStorage
-const todoStorage: TodoPost[] = [];
+const filePath = './module-1/todoApp/todoDB.json';
 var ID = 0; // Global id for TodoPost.id
+let todoStorage: TodoPost[] = [];
+
+
+//*******************************
+// Read data from json and save it to todoStorage
+if (fs.existsSync(filePath)) {
+  const data = fs.readFileSync(filePath, 'utf-8');
+  todoStorage = data ? JSON.parse(data) : [];
+} else {
+  fs.writeFileSync(filePath, JSON.stringify([], null, 4), 'utf-8');
+}   
 
 
 //*******************************
@@ -81,7 +69,8 @@ const rl = readline.createInterface({
 // event on close. Save todoStore-data to <todoDB>.json-file
 rl.on('close', () => {
     console.log(color("green",'== Closing TODO App! =='));
-    //saveDB(todoStorage).catch(console.error);
+    // save to json
+    fs.writeFileSync(filePath, JSON.stringify(todoStorage, null, 4), 'utf-8');
     process.exit(0);
 });   
 
@@ -243,10 +232,6 @@ function main() {
             console.clear();
             message();   
             main();
-        }
-        else if (trimmed === "w") {
-            saveDB(todoStorage).catch(console.error);
-            main();  
         }
         else if (trimmed === "d") {
             askToRemovePost();   

@@ -8,7 +8,7 @@ interface Todo {
 }
 
 async function runTest() {
-    const filePath = 'todoDB.json';
+    const filePath = 'testDB.json';
 
     // Sample data to write
     const todos: Todo[] = [
