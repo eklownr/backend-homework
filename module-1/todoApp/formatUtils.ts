@@ -1,4 +1,6 @@
-
+/**
+ * Module formatUtils handel terminal-color and date-format 
+ */
 
 // ANSI escape-code 
 export const Color = {

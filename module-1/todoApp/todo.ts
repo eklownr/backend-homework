@@ -1,5 +1,6 @@
 import * as readline from 'readline';
 import {Color, color, formatDate} from './formatUtils'
+import { readJsonFile, writeJsonFile } from './fileIO';
 
 /*******************************
  * @author eklownr
@@ -56,8 +57,33 @@ const rl = readline.createInterface({
 // event on close
 rl.on('close', () => {
     console.log(color("green",'== Closing TODO App! =='));
+
     process.exit(0);
 });   
+// test.ts
+
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
+
+
+async function saveDB( db: TodoPost[], filePath?: string): Promise<void> {
+    if (!filePath) {filePath = "todoDB.json"};
+
+    // Write to todoDB.json
+    await writeJsonFile(filePath, db);
+    console.log("Data written to ", filePath);
+}
+
+async function readDB(filePath: string): Promise<TodoPost[]>  {
+    // Read from todoDB.json
+    const data = await readJsonFile<TodoPost[]>(filePath);
+    console.log('Data read from todoDB.json:', data);
+    return data;
+}
+
 
 
 //*******************************
@@ -218,6 +244,10 @@ function main() {
             message();   
             main();
         }
+        else if (trimmed === "w") {
+            saveDB(todoStorage).catch(console.error);   ;   
+        }
+
         else if (trimmed === "d") {
             askToRemovePost();   
         }else {
