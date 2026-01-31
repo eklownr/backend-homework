@@ -1,13 +1,15 @@
 import * as readline from 'readline';
-
+import {Color, color} from './color'
 /*******************************
  * @author eklownr
  * @version 1.0
  * @since 2023-01-30
  * @see https://github.com/eklownr
- * run: tsx todo.ts
+ * run: 'tsx todo.ts' (Install global: 'npm install -g tsx')
 /*******************************/
 
+
+/*
 
 // ANSI escape-code 
 const Color = {
@@ -42,6 +44,8 @@ const color = (colorCode: ColorCode, value: string): string => {
     };
     return `${colors[colorCode] || colors.reset}${value}${colors.reset}`;
 };
+
+*/
 
 
 // Use: formatDate(new Date())); Get: => '2026-30-01 - 12:34'
