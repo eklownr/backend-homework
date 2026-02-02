@@ -163,8 +163,14 @@ console.log(reduce(nums, div, 1));
     and returns a new array with elements found in all of the inputs. BONUS: Use reduce!
  */
 
+const intersection = (arrays: number[][]): number[] => {
+    return arrays.reduce((acc, arr) => {
+        return acc.filter((num) => arr.includes(num));
+    }, arrays[0]);
+};
+
 console.log(
-	intersection([5, 10, 15, 20], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20]),
+	intersection([[5, 10, 15, 20], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20]]),
 );
 // should log: [5, 15]
 
