@@ -135,6 +135,7 @@ const reduce = (
 	let result = initial;
 	forEach(arr, (item) => {
 		result = callback(result, item);
+		console.log(callback, result, item); // TEST
 	});
 	return result;
 };
@@ -154,8 +155,8 @@ const div = function (a: number, b: number): number {
 };
 console.log(reduce(nums, add, 0));
 console.log(reduce(nums, mult, 1));
-console.log(reduce(nums, sub, 10));
-console.log(reduce(nums, div, 1));
+console.log(reduce(nums, sub, 18));
+console.log(reduce(nums, div, 333));
 
 //_______________________________________________________________________________________________
 //  Challenge 7
@@ -163,26 +164,26 @@ console.log(reduce(nums, div, 1));
     and returns a new array with elements found in all of the inputs. BONUS: Use reduce!
  */
 
-const intersection = (arrays: number[][]): number[] => {
-    return arrays.reduce((acc, arr) => {
-        return acc.filter((num) => arr.includes(num));
-    }, arrays[0]);
+const intersection = (...arrays: number[][]): number[] => {
+	return arrays.reduce((acc, arr) => {
+		return acc.filter((num) => arr.includes(num));
+	}, arrays[0]);
 };
 
 console.log(
-	intersection([[5, 10, 15, 20], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20]]),
+	intersection([5, 10, 15, 20], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20]),
 );
 // should log: [5, 15]
 
 // ________________________________________________________________________________________________
-//  // Challenge 8
-//  /*
-//  Construct a function union that compares input arrays and returns a new array that contains all elements. If there are duplicate elements, only add it once to the new array. Preserve the order of the elements starting from the first element of the first input array. BONUS: Use reduce!
-//  */
-//
-//  console.log(union([5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5]));
-//  // should log: [5, 10, 15, 88, 1, 7, 100]
-//
+// Challenge 8
+/*
+ Construct a function union that compares input arrays and returns a new array that contains all elements. If there are duplicate elements, only add it once to the new array. Preserve the order of the elements starting from the first element of the first input array. BONUS: Use reduce!
+ */
+
+console.log(union([5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5]));
+// should log: [5, 10, 15, 88, 1, 7, 100]
+
 //  // ________________________________________________________________________________________________
 //  // Challenge 9
 //  /*
