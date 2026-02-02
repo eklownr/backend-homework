@@ -51,9 +51,38 @@ myPromise
 
 // Fetch data from an API
 const fetchById = (id: number) => {
-	fetch(`https://jsonplaceholder.typicode.com/posts/${id}` )
+	fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
 		.then((response) => response.json())
 		.then((data) => console.log(data));
 };
 
 fetchById(3);
+
+let couter = 0;
+// Promise med async/await
+async function getData() {
+	couter++;
+	return "hej " + couter;
+}
+
+// get value from promise
+getData().then((value) => {
+  console.log(value); // Output: hej 1
+});
+
+// Eller med await (inuti en async-funktion)
+const test = async () => {
+	const result = await getData();
+	console.log(result); // Output: hej 2
+};
+test();
+
+const test2 = async () => {
+	try {
+		const result = await getData();
+		console.log(result); // Output: hej 3
+	} catch (error) {
+		console.error(error);
+	}
+};
+test2();
