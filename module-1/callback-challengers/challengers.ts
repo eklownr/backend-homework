@@ -50,8 +50,8 @@ const map2 = (arr: number[], callback: (num: number) => number): void => {
 
 const arr = [1, 2, 3];
 console.log(map(arr, addTwo)); // change a copy of arr[]
-console.log(arr);
-map2(arr, addTwo); // change the arr[]
+console.log(arr); // arr[] is not changed
+map2(arr, addTwo); // changing original arr[]. ( map2() have no return value. )
 console.log(arr);
 
 // ________________________________________________________________________________________________
@@ -85,17 +85,13 @@ letters.forEach((char) => {
 });
 console.log(myString); // Output: abcd
 
-// Does not work !!
-// console.log(forEach(num, addTwo)); // Output:  2, 4, 6, 8, 10, 12, 14, 16, 18
-
-console.log(num);
-
+// TEST
 const arr2: number[] = [];
 forEach(num, (n) => {
 	arr2.push(addTwo(n));
-	//console.log(addTwo(n));
 });
-console.log(arr2);
+// I try to understand this flow
+console.log("run: 'func forEach([6,7,8,9], callback(n)' and then run: 'arr2.push(addTwo(n))' ",arr2);
 
 //_______________________________________________________________________________________________
 // Challenge 5
