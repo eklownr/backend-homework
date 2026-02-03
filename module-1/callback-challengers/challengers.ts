@@ -101,13 +101,13 @@ use your own forEach function that you just defined.
 Call this new function mapWith.//console.log(mapWith([1, 2, 3], addTwo));
 */
 
-const mapWith = (
+const mapWith = ( // takes 2 args: list[], callback(number): number
 	arr: number[],
 	callback: (num: number) => number,
-): number[] => {
+): number[] => { // return a list of numbers
 	const result: number[] = [];
-	forEach(arr, (item) => {
-		result.push(callback(item));
+	forEach(arr, (item) => { // run the function forEach
+		result.push(callback(item)); // push the new item to the new result[]
 	});
 	return result;
 };
@@ -129,14 +129,15 @@ const reduce = (
 ): number => {
 	// return a number
 	let result = initial;
-	forEach(arr, (item) => {
-		result = callback(result, item);
-		console.log(callback, result, item); // TEST
+	forEach(arr, (item) => { // loop throw arr[1,4,3]
+		result = callback(result, item); // if callback is add(), first loop: 0+1, sec: 0+4, third: 0+3
+		console.log(callback, "init value: " ,initial, "item from arr[i]: ", item, " result: ", result); // TEST to se value of result and item
 	});
 	return result;
 };
 
 const nums = [4, 1, 3];
+
 const add = function (a: number, b: number): number {
 	return a + b;
 };
@@ -160,6 +161,7 @@ console.log(reduce(nums, div, 333));
     and returns a new array with elements found in all of the inputs. BONUS: Use reduce!
  */
 
+// AI-code do not understand all
 const intersection = (...arrays: number[][]): number[] => {
 	return arrays.reduce((acc, arr) => {
 		return acc.filter((num) => arr.includes(num));
@@ -180,6 +182,8 @@ console.log(
  Preserve the order of the elements starting 
  from the first element of the first input array. BONUS: Use reduce!
  */
+
+// AI-code do not understand all
 const union = (...arrays: number[][]): number[] => {
     return arrays.reduce((acc, arr) => {
         return [...acc, ...arr.filter((num) => !acc.includes(num))];
