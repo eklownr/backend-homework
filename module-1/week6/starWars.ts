@@ -29,10 +29,19 @@ const planets: Planets = async (planet: number) => {
 	}
 };
 
+// Run in sequence
 const runSequens = async () => {
-    for (let i = 1; i <= 20; i++) { 
+    for (let i = 1; i <= 10; i++) { 
         await planets(i); // Wait for all to finish
     }
 };
 
 runSequens();
+
+/* does not work
+planets(1);
+planets(2);
+planets(3);
+planets(4);
+planets(5);
+*/
