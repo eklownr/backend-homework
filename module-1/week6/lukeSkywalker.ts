@@ -20,16 +20,18 @@ export const fetchLukeSkywalker = async (): Promise<LukeSkywalker> => {
 };
 
 export const planetLukeSkywalker = async () => {
-	const data = await fetch("https://swapi.py4e.com/api/planets/1").then(
-		(res) => {
-			return res.json();
-		},
-	);
+	const data = await fetch("https://swapi.py4e.com/api/planets/1")
+	.then( (res) => {return res.json();} );
 	return data;
 };
 
 const lukeSkywalker = fetchLukeSkywalker();
-lukeSkywalker.then((data) => console.log("Star wars character ", data.name, ", homeworld API: ", data.homeworld));
+lukeSkywalker.then((data) => 
+	console.log(
+		"Star wars character ", 
+		data.name, 
+		", homeworld API: ", 
+		data.homeworld));
 
 const planet = planetLukeSkywalker();
 planet.then((data) => console.log("How lives on planet ", data.name, "?"));
