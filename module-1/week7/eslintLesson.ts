@@ -81,7 +81,49 @@ const read = async (path: string): Promise<void> => {
 read("./README.md");
 
 // Task 12
+const getData = async (url: string) => {
+	try {
+		let data = await fetch(url);
+		data = await data.json();
+		console.log(data);
+	} catch (error) {
+		console.log(
+			`Error fetching data from ${url}: ${(error as Error).message}`,
+		);
+	}
+};
+getData("https://jsonplaceholder.typicode.com/posts/1");
 
 // Task 13
+const process = (data: number[]) => {
+	return data
+		.filter((x) => {
+			return x > 10;
+		})
+		.map((x) => {
+			return x * 2;
+		});
+};
+
+console.log("****************");
+console.log(process([10, 20, 30]));
+console.log("****************");
 
 // Task 14
+const timer = (ms: number) => {
+	return new Promise((resolve) => {
+		setTimeout(resolve, ms);
+	});
+};
+const test = async (time: number): Promise<void> => {
+	console.log(`*****timeout ${time} sec**************`);
+	await timer(time);
+	console.log(`Done waiting for ${time} secund`);
+};
+const runSequens = async () => {
+	for (let i = 1000; i <= 3000; i += 1000) {
+		await test(i);
+	}
+};
+
+runSequens();
