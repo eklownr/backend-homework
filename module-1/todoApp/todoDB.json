@@ -1,32 +1,14 @@
 [
     {
-        "todo": "learn ts",
-        "date": "2026-31-01 - 20:12",
-        "id": 1,
-        "done": "active"
-    },
-    {
-        "todo": "learn js",
-        "date": "2026-31-01 - 20:12",
+        "todo": "add user to traveler app",
+        "date": "2026-14-02 - 09:26",
         "id": 2,
         "done": "active"
     },
     {
-        "todo": "learn mogodb",
-        "date": "2026-31-01 - 20:13",
-        "id": 4,
-        "done": "active"
-    },
-    {
-        "todo": "drink coffee",
-        "date": "2026-31-01 - 20:22",
-        "id": 5,
-        "done": "completed"
-    },
-    {
-        "todo": "Take a walk",
-        "date": "2026-31-01 - 20:23",
-        "id": 6,
+        "todo": "remove country:Trip objects from modules",
+        "date": "2026-14-02 - 09:27",
+        "id": 3,
         "done": "active"
     }
 ]
